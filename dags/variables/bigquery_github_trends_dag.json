@@ -1,0 +1,9 @@
+{
+    "interval": "15 9 * * *",
+    "end_date": "",
+    "service_account": "/opt/airflow/secret/xxx.json",
+    "project_id": "",
+    "gcp_conn_id": "",
+    "dataset_id": "",
+    "start_date": "2021-12-13 00:12:15"
+  }

@@ -1,0 +1,43 @@
+[2022-02-12 14:27:53,683] {taskinstance.py:1035} INFO - Dependencies all met for <TaskInstance: bigquery_github_trends_dag.bq_check_githubarchive_day scheduled__2022-01-18T02:15:00+00:00 [queued]>
+[2022-02-12 14:27:53,716] {taskinstance.py:1035} INFO - Dependencies all met for <TaskInstance: bigquery_github_trends_dag.bq_check_githubarchive_day scheduled__2022-01-18T02:15:00+00:00 [queued]>
+[2022-02-12 14:27:53,717] {taskinstance.py:1241} INFO - 
+--------------------------------------------------------------------------------
+[2022-02-12 14:27:53,718] {taskinstance.py:1242} INFO - Starting attempt 1 of 3
+[2022-02-12 14:27:53,719] {taskinstance.py:1243} INFO - 
+--------------------------------------------------------------------------------
+[2022-02-12 14:27:53,730] {taskinstance.py:1262} INFO - Executing <Task(BigQueryCheckOperator): bq_check_githubarchive_day> on 2022-01-18 02:15:00+00:00
+[2022-02-12 14:27:53,736] {standard_task_runner.py:52} INFO - Started process 1347 to run task
+[2022-02-12 14:27:53,739] {standard_task_runner.py:76} INFO - Running: ['***', 'tasks', 'run', 'bigquery_github_trends_dag', 'bq_check_githubarchive_day', 'scheduled__2022-01-18T02:15:00+00:00', '--job-id', '466', '--raw', '--subdir', 'DAGS_FOLDER/bq_github_trends.py', '--cfg-path', '/tmp/tmpcpo_f_sj', '--error-file', '/tmp/tmpyklo6l9f']
+[2022-02-12 14:27:53,741] {standard_task_runner.py:77} INFO - Job 466: Subtask bq_check_githubarchive_day
+[2022-02-12 14:27:53,800] {logging_mixin.py:109} INFO - Running <TaskInstance: bigquery_github_trends_dag.bq_check_githubarchive_day scheduled__2022-01-18T02:15:00+00:00 [running]> on host df08bcee4beb
+[2022-02-12 14:27:53,839] {warnings.py:110} WARNING - /home/***/.local/lib/python3.7/site-packages/***/models/taskinstance.py:1941: DeprecationWarning: Accessing 'yesterday_ds_nodash' from the template is deprecated and will be removed in a future version.
+  warnings.warn(message, DeprecationWarning)
+
+[2022-02-12 14:27:53,860] {taskinstance.py:1429} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=anggapradiktas@gmail.com
+AIRFLOW_CTX_DAG_OWNER=Angga
+AIRFLOW_CTX_DAG_ID=bigquery_github_trends_dag
+AIRFLOW_CTX_TASK_ID=bq_check_githubarchive_day
+AIRFLOW_CTX_EXECUTION_DATE=2022-01-18T02:15:00+00:00
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2022-01-18T02:15:00+00:00
+[2022-02-12 14:27:53,862] {sql.py:120} INFO - Executing SQL check: 
+        #standardSQL
+        SELECT
+          table_id
+        FROM
+          `githubarchive.day.__TABLES_SUMMARY__`
+        WHERE
+          table_id = "20220117"
+        
+[2022-02-12 14:27:53,873] {warnings.py:110} WARNING - /home/***/.local/lib/python3.7/site-packages/***/providers/google/cloud/hooks/bigquery.py:141: DeprecationWarning: This method will be deprecated. Please use `BigQueryHook.get_client` method
+  "This method will be deprecated. Please use `BigQueryHook.get_client` method", DeprecationWarning
+
+[2022-02-12 14:27:54,724] {warnings.py:110} WARNING - /home/***/.local/lib/python3.7/site-packages/***/providers/google/cloud/hooks/bigquery.py:2191: DeprecationWarning: This method is deprecated. Please use `BigQueryHook.insert_job` method.
+  "This method is deprecated. Please use `BigQueryHook.insert_job` method.", DeprecationWarning
+
+[2022-02-12 14:27:54,727] {bigquery.py:1637} INFO - Inserting job ***_1644676074726614_6ea138ac8a7d8ce2b36bd457c3dccf05
+[2022-02-12 14:27:57,594] {sql.py:123} INFO - Record: ['20220117']
+[2022-02-12 14:27:57,595] {sql.py:129} INFO - Success.
+[2022-02-12 14:27:57,856] {taskinstance.py:1280} INFO - Marking task as SUCCESS. dag_id=bigquery_github_trends_dag, task_id=bq_check_githubarchive_day, execution_date=20220118T021500, start_date=20220212T142753, end_date=20220212T142757
+[2022-02-12 14:27:57,892] {local_task_job.py:154} INFO - Task exited with return code 0
+[2022-02-12 14:27:57,942] {local_task_job.py:264} INFO - 1 downstream tasks scheduled from follow-on schedule check
