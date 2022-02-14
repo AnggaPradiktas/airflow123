@@ -1,0 +1,45 @@
+[
+    {
+       "column_name":"city",
+       "column_type":"varchar(120)",
+       "is_primary_key":false,
+       "is_unique":false,
+       "is_null_able":"NOT NULL"
+    },
+    {
+      "column_name":"name",
+      "column_type":"varchar(120)",
+      "is_primary_key":false,
+      "is_unique":false,
+      "is_null_able":"NOT NULL"
+   },
+    {
+       "column_name":"estimated_cost",
+       "column_type":"int",
+       "is_primary_key":false,
+       "is_unique":false,
+       "is_null_able":"NOT NULL"
+    },
+    {
+       "column_name":"id",
+       "column_type":"int",
+       "is_primary_key":false,
+       "is_unique":false,
+       "is_null_able":"NOT NULL"
+    },
+    {
+       "column_name":"average_rating",
+       "column_type":"float",
+       "is_primary_key":false,
+       "is_unique":false,
+       "is_null_able":"NOT NULL"
+    },
+    {
+       "column_name":"votes",
+       "column_type":"int",
+       "is_primary_key":false,
+       "is_unique":false,
+       "is_null_able":"NOT NULL"
+    }
+ ]
+ 
