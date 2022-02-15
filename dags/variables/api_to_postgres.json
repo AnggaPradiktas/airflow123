@@ -1,0 +1,12 @@
+{
+    "interval": "15 9 * * *",
+    "buffer": 0,
+    "days": 1,
+    "end_date": "",
+    "start_date": "2021-12-13 00:12:15",
+    "url": "https://jsonmock.hackerrank.com/api/food_outlets?city=Seattle&page={}",
+    "page": 4,
+    "json_schema": "/opt/airflow/dags/example_api_to_postgre/api_to_postgres.json",
+    "rename_cols": {"user_rating.average_rating": "average_rating", "user_rating.votes": "votes"},
+    "postgres_conn_id": "postgres_conn_id"
+}
