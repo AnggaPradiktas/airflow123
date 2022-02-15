@@ -45,6 +45,7 @@ load_api_data_to_postgres_v2_task = ApiToPostgresOperator(
     json_schema=configs['json_schema'],
     rename_cols=configs['rename_cols'],
     postgres_conn_id=configs['postgres_conn_id'],
+    table_name=configs['table_name'],
     dag=dag
 )
 

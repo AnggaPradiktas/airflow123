@@ -18,6 +18,7 @@ class ApiToPostgresOperator(BaseOperator):
                 json_schema,
                 rename_cols,
                 postgres_conn_id,
+                table_name,
                 *args, 
                 **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,6 +27,7 @@ class ApiToPostgresOperator(BaseOperator):
         self.json_schema = json_schema  
         self.rename_cols = rename_cols
         self.postgres_conn_id = postgres_conn_id
+        self.table_name = table_name
 
 
     def execute(self, context):
@@ -36,6 +38,7 @@ class ApiToPostgresOperator(BaseOperator):
         hook.run(self.create_schema())
         for i in range(self.page+1):
             self.load_data(hook, self.url.format(i))
+            logging.info('url is \n{}'.format(self.url.format(i)))
             time.sleep(2)
         logging.info("Load data DONE...")
 
@@ -44,8 +47,6 @@ class ApiToPostgresOperator(BaseOperator):
         headers = {}
 
         response = requests.request("GET", url, headers=headers, data=payload)
-
-        logging.info('url is \n{}'.format(self.url))
 
         df = pd.json_normalize(response.json()['data'])
         df = df.rename(columns=self.rename_cols)
@@ -58,7 +59,7 @@ class ApiToPostgresOperator(BaseOperator):
         tmp_file = tempfile.NamedTemporaryFile()
         csv_file = tmp_file.name + '.csv'
         df = self.get_api_data(url)
-        df.to_csv(csv_file, index=False, sep='\t')
+        df.to_csv(csv_file, index=False, sep='\t', header=False)
         logging.info("Generating CSV file DONE...")
         return csv_file
         
@@ -69,7 +70,7 @@ class ApiToPostgresOperator(BaseOperator):
         list_schema = [[c['column_name'], c['column_type'], c['is_null_able']] for c in contents]
         t = [' '.join(w) for w in list_schema]
 
-        create_schema = """ CREATE TABLE IF NOT EXISTS api_to_postgres {}; """.format(tuple(t)).replace("'", "")
+        create_schema = """ CREATE TABLE IF NOT EXISTS {} {}; """.format(self.table_name, tuple(t)).replace("'", "")
         logging.info("Creating schema...")
         return create_schema
 

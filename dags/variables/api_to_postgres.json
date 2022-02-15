@@ -8,5 +8,6 @@
     "page": 4,
     "json_schema": "/opt/airflow/dags/example_api_to_postgre/api_to_postgres.json",
     "rename_cols": {"user_rating.average_rating": "average_rating", "user_rating.votes": "votes"},
-    "postgres_conn_id": "postgres_conn_id"
+    "postgres_conn_id": "postgres_conn_id",
+    "table_name": "api_to_postgres_v2"
 }
