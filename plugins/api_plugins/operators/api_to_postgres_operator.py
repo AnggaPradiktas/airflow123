@@ -2,7 +2,6 @@ import pandas as pd
 import json
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.models import BaseOperator
-# from airflow.utils.decorators import apply_defaults
 from airflow.hooks.base_hook import BaseHook
 import requests
 import logging
@@ -11,7 +10,6 @@ import time
 
 
 class ApiToPostgresOperator(BaseOperator):
-    # @apply_defaults
     def __init__(self,
                 url,
                 page,

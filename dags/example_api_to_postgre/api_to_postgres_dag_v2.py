@@ -38,15 +38,18 @@ completed = DummyOperator(
     task_id='completed',
     dag=dag)
 
-load_api_data_to_postgres_v2_task = ApiToPostgresOperator(
-    task_id='load_api_data_to_postgres_v2',
-    url=configs['url'],
-    page=configs['page'],
-    json_schema=configs['json_schema'],
-    rename_cols=configs['rename_cols'],
-    postgres_conn_id=configs['postgres_conn_id'],
-    table_name=configs['table_name'],
-    dag=dag
-)
+migrations = configs.get('migrations', [])
 
-start >> load_api_data_to_postgres_v2_task >> completed
+for migration in migrations:
+    load_api_data_to_postgres_v2_task = ApiToPostgresOperator(
+        task_id='load_api_data_to_postgres_v2_' + migration['table_name'],
+        url=configs['url'],
+        page=configs['page'],
+        json_schema=configs['json_schema'],
+        rename_cols=configs['rename_cols'],
+        postgres_conn_id=configs['postgres_conn_id'],
+        table_name=migration['table_name'],
+        dag=dag
+    )
+
+    start >> load_api_data_to_postgres_v2_task >> completed
