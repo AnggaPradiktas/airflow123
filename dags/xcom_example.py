@@ -10,12 +10,14 @@ default_args = {
 }
 
 
-def _training_model():
+def _training_model(ti):
     accuracy = uniform(0.1, 10.0)
     print(f'model\'s accuracy: {accuracy}')
+    ti.xcom_push(key='model_accuracy', value=accuracy)
 
-def _choose_best_model():
-    print('choose best model')
+def _choose_best_model(ti):
+    fetched_accuracy = ti.xcom_pull(key='model_accuracy', task_ids=['training_model_A', 'training_model_B', 'training_model_C'])
+    print(f'choose best model: {fetched_accuracy}')
     
 
 with DAG('xcom_dag', 
@@ -25,7 +27,8 @@ with DAG('xcom_dag',
 
     downloading_data = BashOperator(
         task_id='downloading_data',
-        bash_command='sleep 3'
+        bash_command='sleep 3',
+        do_xcom_push=True
         )
 
     training_model_task = [PythonOperator(
@@ -37,6 +40,12 @@ with DAG('xcom_dag',
                 task_id='choose_model',
                 python_callable=_choose_best_model
                 )
+    
+    fetching_data = BashOperator(
+                task_id='fetching_data',
+                bash_command="echo 'XCom fetched: {{ ti.xcom_pull(task_ids=[\'downloading_data\']) }}'",
+                do_xcom_push=False
+                )
 
 
-    downloading_data >> training_model_task >> choose_model
+    downloading_data >> training_model_task >> choose_model >> fetching_data
